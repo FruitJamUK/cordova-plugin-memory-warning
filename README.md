@@ -19,28 +19,22 @@
 
 # cordova-plugin-memory-warning
 
-This plugin is meant to ensure that console.log() is as useful as it can be.
-It adds additional function for iOS, Ubuntu, Windows Phone 8, and Windows. If
-you are happy with how console.log() works for you, then you probably
-don't need this plugin.
+This is an iOS-specific plugin for registering callbacks to iOS memory warnings.
 
-This plugin defines a global `console` object.
+`cordova-plugin-memory-warning` adds a single object to the global scope, with a registration function.
+
+```
+MemoryWarning.register(function(){console.warn('Received a Memory Warning from iOS');})
+```
 
 Although the object is in the global scope, features provided by this plugin
 are not available until after the `deviceready` event.
 
     document.addEventListener("deviceready", onDeviceReady, false);
     function onDeviceReady() {
-        console.log("console.log works well");
+        MemoryWarning.register(callbackFn);
     }
 
 ## Installation
 
-    cordova plugin add cordova-plugin-console
-
-### Android Quirks
-
-On some platforms other than Android, console.log() will act on multiple
-arguments, such as console.log("1", "2", "3"). However, Android will act only
-on the first argument. Subsequent arguments to console.log() will be ignored.
-This plugin is not the cause of that, it is a limitation of Android itself.
+    cordova plugin add https://github.com/FruitJamUK/cordova-plugin-memory-warning.git
